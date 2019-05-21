@@ -18,4 +18,4 @@ Cache plugins:
 1. `terrafrom graph`
 1. `terraform graph | dot -Tsvg > graph.svg` (dot util is part of Graphviz software)
 
-## Vairables (Step 2)
+## Variables (Step 2)
