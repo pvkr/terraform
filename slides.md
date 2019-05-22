@@ -22,10 +22,6 @@ Features:
 * Resource graph
 * Free
 
-## Resource dependencies
-
-* TODO: Insert images of dependency graphs
-
 ## Commands
 
 * terraform plan
@@ -35,6 +31,10 @@ Features:
 * terraform init
 * terraform graph
 * terraform validate
+
+## Resource dependencies
+
+* TODO: Insert images of dependency graphs
 
 ## Variables
 
