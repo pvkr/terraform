@@ -17,15 +17,14 @@ Features:
 * Infrastructure as code (HCL/JSON)
 * Cloud agnostic
 * Manages infrastructure/not software
-* Manage State
+* State
 * Execution Plan
 * Resource graph
 * Free
 
 ## Resource dependencies
 
-* Implicit
-* Explicit
+* TODO: Insert images of dependency graphs
 
 ## Commands
 
@@ -96,15 +95,15 @@ root/
     │   └── outputs.tf
 ```
 
-Module structure (+env):
-````
-root/
-├── main.tf
-├── outputs.tf
-├── variables.tf
-└── modules/
-    ├── vpc/
-    │   ├── main.tf
-    │   ├── variables.tf
-    │   └── outputs.tf
-```
+What about different envs?
+
+What about versioning of modules?
+
+## State
+
+## Workspace
+
+terraform workspace list
+terraform workspace new pvkr-ws
+terraform workspace select default
+terraform workspace delete pvkr-ws
