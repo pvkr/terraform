@@ -70,3 +70,41 @@ resource "aws_s3_bucket" "s3" {
   acl    = "private"
 }
 ```
+
+## Modules
+```
+module "vpc" {
+  # Local Folder
+  source = "./vpc"
+  # VC (git)
+  # S3 (archive)
+
+  input_var1 = value1
+  ...
+}
+```
+Module structure:
+```
+root/
+├── main.tf
+├── outputs.tf
+├── variables.tf
+└── modules/
+    ├── vpc/
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── outputs.tf
+```
+
+Module structure (+env):
+````
+root/
+├── main.tf
+├── outputs.tf
+├── variables.tf
+└── modules/
+    ├── vpc/
+    │   ├── main.tf
+    │   ├── variables.tf
+    │   └── outputs.tf
+```
