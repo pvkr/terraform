@@ -3,11 +3,11 @@ provider "aws" {
   region                  = "eu-central-1"
 }
 
-resource "aws_s3_bucket" "ts3" {
-  bucket = "pvkr-terraform-s3-bucket"
+resource "aws_s3_bucket" "s3" {
+  bucket = "pvkr-terraform-s3"
   acl    = "private"
 
   tags {
-    Name = "terraform-s3-bucket"
+    Name = "terraform-s3"
   }
 }

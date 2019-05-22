@@ -2,12 +2,13 @@
 ## Agenda
 * What is terraform
 * Commands
+* Resource dependencies
 * Variables
 * Loops
 * Modules
 * State
 * Workspace
-* Examples
+* Provision
 
 ## Terraform
 Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently.
@@ -20,6 +21,11 @@ Features:
 * Execution Plan
 * Resource graph
 * Free
+
+## Resource dependencies
+
+* Implicit
+* Explicit
 
 ## Commands
 
@@ -45,3 +51,22 @@ Supported types:
 * string/number/bool
 * list/set
 * map/tuples/object
+
+## Loops
+Loop
+```
+resource "aws_subnet" "subnet" {
+  count  = "${length(var.azs)}"
+  vpc_id = "${aws_vpc.main.id}"
+  cidr_block = "${var.subnet_cidrs[count.index]}"
+  availability_zone = "${var.azs[count.index]}"
+}
+```
+Condition
+```
+resource "aws_s3_bucket" "s3" {
+  count  = "${var.s3_enabled ? 1 : 0}"
+  bucket = "pvkr-terraform-s3"
+  acl    = "private"
+}
+```
