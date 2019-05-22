@@ -8,6 +8,6 @@ resource "aws_s3_bucket" "s3" {
   acl    = "private"
 
   tags {
-    Name = "terraform-s3"
+    Name = "pvkr-terraform-s3"
   }
 }

@@ -101,6 +101,18 @@ What about versioning of modules?
 
 ## State
 
+Remote state
+```
+terraform {
+  backend "s3" {
+    bucket         = "pvkr-terraform-s3-state"
+    key            = "tf/terraform.tfstate"
+    region         = "eu-central-1"
+    #dynamodb_table = "terraform-lock"
+  }
+}
+```
+
 ## Workspace
 
 terraform workspace list
