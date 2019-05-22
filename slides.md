@@ -8,7 +8,7 @@
 * Modules
 * State
 * Workspace
-* Provision
+* Provisioners
 
 ## Terraform
 Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently.
@@ -34,22 +34,38 @@ Features:
 
 ## Resource dependencies
 
-* TODO: Insert images of dependency graphs
+* Generate graph: `terraform graph`
+* Generate img: `terraform graph | dot -Tsvg > graph.svg`
+
+s3 implicitly depends on s3_log (ec2 doesn't depend on s3)
+
+![alt text](step2_dependency/image1.svg "Implicit dependency")
+
+ec2 explicitly depends on s3
+
+![alt text](step2_dependency/image2.svg "Explicit dependency")
 
 ## Variables
 
-1. tf code (variable "key" { type = "string"  default = "value" })
+1. .tf file
+```
+variable "key" {
+  type = "string"  
+  default = "value"
+  description "Some description"
+}
+```
 
-1. export TF_VAR_key=value
+2. env variable: `export TF_VAR_key=value`
 
-1. terraform apply -var key=value
+1. command line param: `terraform apply -var key=value`
 
-1. tfvars files (key=value)
+1. .tfvars key-value file
 
 Supported types:
-* string/number/bool
-* list/set
-* map/tuples/object
+* string
+* list
+* map
 
 ## Loops
 Loop
@@ -100,14 +116,13 @@ What about different envs?
 What about versioning of modules?
 
 ## State
-
 Remote state
 ```
 terraform {
   backend "s3" {
-    bucket         = "pvkr-terraform-s3-state"
-    key            = "tf/terraform.tfstate"
-    region         = "eu-central-1"
+    bucket          = "pvkr-terraform-s3-state"
+    key             = "tf/terraform.tfstate"
+    region          = "eu-central-1"
     #dynamodb_table = "terraform-lock"
   }
 }
@@ -115,7 +130,29 @@ terraform {
 
 ## Workspace
 
-terraform workspace list
-terraform workspace new pvkr-ws
-terraform workspace select default
-terraform workspace delete pvkr-ws
+* terraform workspace list
+* terraform workspace new pvkr-ws
+* terraform workspace select default
+* terraform workspace delete pvkr-ws
+
+## Provisioners
+```
+resource "aws_instance" "web" {
+  # ...
+  provisioner "local-exec" {
+    command = "echo 'Creation-time provisioner' >> provision.log"
+  }
+  provisioner "local-exec" {
+    command    = "echo ${aws_instance.web.private_ip} >> provision.log"
+    on_failure = "continue" # default "fault"
+  }
+  provisioner "local-exec" {
+    when    = "destroy"
+    command = "echo 'Destroy-time provisioner' >> provision.log"
+  }
+}
+```
+* local-exec (script executed on host machine)
+* remote-exec (script copied to resource and executed)
+* file (copy from host to resource)
+* chef/habitat

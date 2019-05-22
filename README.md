@@ -7,7 +7,7 @@ Cache plugins:
 Resource graph:
 1. Install Graphviz software
 1. Execute: `terraform graph | dot -Tsvg > graph.svg`
-1. Apply some filters: `terraform graph | grep -v meta.count-boundary | grep -v "\[root\] var\." | dot -Tsvg > image.svg`
+1. Apply some filters: `terraform graph | grep -v meta.count-boundary | grep -v -E "\[root\] (var\.|root)" | dot -Tsvg > image.svg`
 
 Apply external varaibles:
 

@@ -2,4 +2,5 @@
 terraform.*
 
 .creds
+id_rsa.pub
 
